@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+
+        {{ product.description|truncatewords:155 }}
+
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{ product.name }} -THE MUFFIN HOUSE
+
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'muffinapp:allProdCat' %}">Home</a> | <a href="{{product.category.get_url}}">{{product.category}}</a>{{product.name}}</p>
+    </div>
+</div>
+<div class="container">
+<br>
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{product.image.url}}" alt="{{product.name}}" width="300px" height="250px">
+        </div>
+    </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title">{{product.name}}</h1>
+            <p class="btn btn-primary">₹ {{product.price}}</p>
+            <h4 style="color:grey"><u>Product Description</u></h4>
+            <h5>{{product.description}}</h5>
+            <p>Do not read this it's just a dummy text. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            {% if product.stock <= 0 %}
+            <p><b>OUT OF STOCK</b></p>
+            {% else %}
+            <a class="btn btn-secondary" href="/">Add to Cart</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
